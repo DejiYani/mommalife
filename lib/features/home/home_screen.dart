@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:momma_life/features/home/profile_page.dart';
+import 'package:momma_life/features/notification/notifications_screen.dart';
 
 
 void main() {
@@ -122,7 +123,9 @@ class _PatientHomePageState extends State<PatientHomePage> {
             IconButton(
               icon: const Icon(Icons.notifications_outlined),
               color: const Color(0xFFD98E7E),
-              onPressed: () {},
+              onPressed: () {
+                Navigator.push(context, MaterialPageRoute(builder: (context) => const NotificationsScreen()));
+              },
             ),
             Positioned(
               right: 8,
@@ -570,7 +573,7 @@ class _PatientHomePageState extends State<PatientHomePage> {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
-              _buildNavItem(Icons.accessibility_new_outlined, 'Body', 0),
+              _buildNavItem(Icons.bedroom_baby, 'Baby', 0),
               _buildNavItem(Icons.pregnant_woman_outlined, 'Mother', 1),
               _buildNavItem(Icons.calendar_today_outlined, 'Appointment', 2),
               _buildNavItem(Icons.home_outlined, 'Home', 3),
