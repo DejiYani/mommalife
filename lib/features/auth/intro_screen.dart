@@ -1,6 +1,52 @@
 import 'package:flutter/material.dart';
 import 'package:momma_life/features/home/home_screen.dart';
-//import 'login_screen.dart';
+import 'create_account.dart';
+import 'package:momma_life/terms_n_policy/terms_screen.dart';
+import 'package:momma_life/terms_n_policy/policy_screen.dart';
+import 'package:flutter/gestures.dart';
+
+class HoverText extends StatefulWidget {
+  final String text;
+  final VoidCallback onTap;
+
+  const HoverText({super.key, required this.text, required this.onTap});
+
+  @override
+  State<HoverText> createState() => _HoverTextState();
+}
+
+class _HoverTextState extends State<HoverText> {
+  bool _isHovered = false; // tracks if mouse is over the text
+
+  @override
+  Widget build(BuildContext context) {
+    return MouseRegion(
+      onEnter: (_) {
+        setState(() {
+          _isHovered = true;
+        });
+      },
+      onExit: (_) {
+        setState(() {
+          _isHovered = false;
+        });
+      },
+      cursor: SystemMouseCursors.click, // makes cursor a pointer
+      child: GestureDetector(
+        onTap: widget.onTap,
+        child: Text(
+          widget.text,
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+            decoration: _isHovered
+                ? TextDecoration.underline
+                : TextDecoration.none, // underline only when hovered
+          ),
+        ),
+      ),
+    );
+  }
+}
 
 class IntroScreen extends StatelessWidget {
   const IntroScreen({super.key});
@@ -17,7 +63,7 @@ class IntroScreen extends StatelessWidget {
             end: Alignment.bottomCenter,
             colors: [
               Color(0xFFFFFFFF),
-              Color(0xFFF4B7A5), // soft peach like your design
+              Color(0xFFE89B88),
             ],
           ),
         ),
@@ -87,6 +133,7 @@ class IntroScreen extends StatelessWidget {
                 child: ElevatedButton(
                   style: ElevatedButton.styleFrom(
                     backgroundColor: const Color(0xFFE9A08A),
+                    foregroundColor: Colors.white,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(30),
                     ),
@@ -104,25 +151,67 @@ class IntroScreen extends StatelessWidget {
               const SizedBox(height: 16),
 
               // Create account
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: const [
-                  Text('or '),
-                  Text(
-                    'Create an account',
-                    style: TextStyle(fontWeight: FontWeight.bold),
-                  ),
-                ],
-              ),
+              
+Row(
+  mainAxisAlignment: MainAxisAlignment.center,
+  children: [
+    const Text('or '),
+    HoverText(
+      text: 'Create an account',
+      onTap: () {
+        Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (_) => const CreateAccount()),
+                    );
+      },
+    ),
+  ],
+),
+
 
               const SizedBox(height: 24),
 
-              // Terms
-              const Text(
-                'I accept the Terms & Conditions and Policy',
-                textAlign: TextAlign.center,
-                style: TextStyle(fontSize: 12, color: Colors.black54),
-              ),
+              // Terms & Policy
+RichText(
+  textAlign: TextAlign.center,
+  text: TextSpan(
+    style: const TextStyle(fontSize: 12, color: Colors.black54),
+    children: [
+      const TextSpan(text: 'I accept the '),
+      TextSpan(
+        text: 'Terms & Conditions',
+        style: const TextStyle(
+          fontWeight: FontWeight.bold,
+          decoration: TextDecoration.underline,
+        ),
+        recognizer: TapGestureRecognizer()
+          ..onTap = () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (_) => const TermsScreen()),
+            );
+          },
+      ),
+      const TextSpan(text: ' and '),
+      TextSpan(
+        text: 'Policy',
+        style: const TextStyle(
+          fontWeight: FontWeight.bold,
+          decoration: TextDecoration.underline,
+        ),
+        recognizer: TapGestureRecognizer()
+          ..onTap = () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (_) => const PolicyScreen()),
+            );
+          },
+      ),
+    ],
+  ),
+),
+
+
 
               const Spacer(),
             ],
