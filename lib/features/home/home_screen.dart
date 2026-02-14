@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:momma_life/features/home/profile_page.dart';
 import 'package:momma_life/features/notification/notifications_screen.dart';
+import 'package:momma_life/features/appointment/appointment_main.dart';
 
 
 void main() {
@@ -260,7 +261,15 @@ class _PatientHomePageState extends State<PatientHomePage> {
                 ),
               ),
               TextButton(
-                onPressed: () {},
+                onPressed: () {
+                  // Navigate to appointments screen
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const AppointmentMainScreen(),
+                    ),
+                  );
+                },
                 child: const Text(
                   'Show all →',
                   style: TextStyle(
@@ -306,7 +315,15 @@ class _PatientHomePageState extends State<PatientHomePage> {
                 ),
                 const SizedBox(height: 8),
                 TextButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    // Navigate to appointments screen
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const AppointmentMainScreen(),
+                      ),
+                    );
+                  },
                   child: const Text(
                     'View appointment details',
                     style: TextStyle(
@@ -335,7 +352,15 @@ class _PatientHomePageState extends State<PatientHomePage> {
               child: Material(
                 color: Colors.transparent,
                 child: InkWell(
-                  onTap: () {},
+                  onTap: () {
+                    // Navigate to appointments screen
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const AppointmentMainScreen(),
+                      ),
+                    );
+                  },
                   borderRadius: BorderRadius.circular(12),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -591,9 +616,30 @@ class _PatientHomePageState extends State<PatientHomePage> {
     final isSelected = _selectedIndex == index;
     return InkWell(
       onTap: () {
-        setState(() {
-          _selectedIndex = index;
-        });
+        // Only update state and navigate for non-Home tabs
+        if (index == 3) {
+          // Home tab - just update the selected state, stay on this screen
+          setState(() {
+            _selectedIndex = 3;
+          });
+        } else if (index == 2) {
+          // Appointment tab - navigate to appointments
+          setState(() {
+            _selectedIndex = index;
+          });
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => const AppointmentMainScreen(),
+            ),
+          );
+        } else {
+          // Other tabs - just update state for now
+          setState(() {
+            _selectedIndex = index;
+          });
+          // TODO: Add navigation for other tabs when their screens are ready
+        }
       },
       child: Column(
         mainAxisSize: MainAxisSize.min,

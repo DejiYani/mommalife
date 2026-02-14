@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'home_screen.dart';
 
 void main() {
   runApp(const ProfilePage());
@@ -63,7 +64,11 @@ class ProfileScreen extends StatelessWidget {
               IconButton(
                 icon: const Icon(Icons.arrow_back, color: terracottaColor),
                 onPressed: () {
-                  Navigator.of(context).pop();
+                  Navigator.pushAndRemoveUntil(
+                    context, 
+                    MaterialPageRoute(builder: (context) => const HomeScreen()), 
+                    (route) => false);
+                  
                 },
               ),
               const Expanded(
