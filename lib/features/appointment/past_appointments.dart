@@ -4,9 +4,9 @@ class PastAppointmentsScreen extends StatefulWidget {
   final List<Map<String, dynamic>> appointments;
 
   const PastAppointmentsScreen({
-    Key? key,
+    super.key,
     required this.appointments,
-  }) : super(key: key);
+  });
 
   @override
   State<PastAppointmentsScreen> createState() => _PastAppointmentsScreenState();

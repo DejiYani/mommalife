@@ -4,7 +4,7 @@ import 'notification_settings_screen.dart';
 
 
 class NotificationsScreen extends StatelessWidget {
-  const NotificationsScreen({Key? key}) : super(key: key);
+  const NotificationsScreen({super.key});
 
   static const Color terracottaColor = Color(0xFFD98E7E);
   static const Color lightPeachColor = Color(0xFFFFF5F5);

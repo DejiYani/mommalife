@@ -2,6 +2,8 @@
 import 'package:flutter/material.dart';
 
 class BookAppointmentScreen extends StatefulWidget {
+  const BookAppointmentScreen({super.key});
+
   @override
   _BookAppointmentState createState() => _BookAppointmentState();
 }
@@ -73,7 +75,7 @@ class _BookAppointmentState extends State<BookAppointmentScreen> {
                       children: [
                         Text('Appointment Type', style: TextStyle(fontWeight: FontWeight.bold)),
                         DropdownButtonFormField<String>(
-                          value: _selectedType,
+                          initialValue: _selectedType,
                           items: appointmentTypes.map((type) {
                             return DropdownMenuItem(value: type, child: Text(type));
                           }).toList(),

@@ -2,6 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:momma_life/features/home/profile_page.dart';
 import 'package:momma_life/features/notification/notifications_screen.dart';
 import 'package:momma_life/features/appointment/appointment_main.dart';
+import 'package:momma_life/features/baby/baby_screen.dart';
+import 'package:momma_life/features/mother/mother_screen.dart';
+import 'package:momma_life/features/chat/chat_screen.dart';
+import 'package:momma_life/features/library/library_screen.dart';
+import 'package:momma_life/features/planning/planning_screen.dart';
 
 
 void main() {
@@ -9,7 +14,7 @@ void main() {
 }
 
 class HomeScreen extends StatelessWidget {
-  const HomeScreen({Key? key}) : super(key: key);
+  const HomeScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +31,7 @@ class HomeScreen extends StatelessWidget {
 }
 
 class PatientHomePage extends StatefulWidget {
-  const PatientHomePage({Key? key}) : super(key: key);
+  const PatientHomePage({super.key});
 
   @override
   State<PatientHomePage> createState() => _PatientHomePageState();
@@ -612,54 +617,70 @@ class _PatientHomePageState extends State<PatientHomePage> {
     );
   }
 
-  Widget _buildNavItem(IconData icon, String label, int index) {
-    final isSelected = _selectedIndex == index;
-    return InkWell(
-      onTap: () {
-        // Only update state and navigate for non-Home tabs
-        if (index == 3) {
-          // Home tab - just update the selected state, stay on this screen
-          setState(() {
-            _selectedIndex = 3;
-          });
-        } else if (index == 2) {
-          // Appointment tab - navigate to appointments
-          setState(() {
-            _selectedIndex = index;
-          });
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => const AppointmentMainScreen(),
-            ),
-          );
-        } else {
-          // Other tabs - just update state for now
-          setState(() {
-            _selectedIndex = index;
-          });
-          // TODO: Add navigation for other tabs when their screens are ready
-        }
-      },
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Icon(
-            icon,
+Widget _buildNavItem(IconData icon, String label, int index) {
+  final isSelected = _selectedIndex == index;
+
+  return InkWell(
+    onTap: () {
+      if (_selectedIndex == index) return;
+
+      setState(() {
+        _selectedIndex = index;
+      });
+
+      Widget destination;
+
+      switch (index) {
+        case 0:
+          destination = const BabyScreen();
+          break;
+        case 1:
+          destination = const MotherScreen();
+          break;
+        case 2:
+          destination = const AppointmentMainScreen();
+          break;
+        case 3:
+          destination = const PatientHomePage();
+          break;
+        case 4:
+          destination = const ChatScreen();
+          break;
+        case 5:
+          destination = const LibraryScreen();
+          break;
+        case 6:
+          destination = const PlanningScreen();
+          break;
+        default:
+          destination = const PatientHomePage();
+      }
+
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => destination),
+      );
+    },
+    child: Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Icon(
+          icon,
+          color: isSelected ? const Color(0xFFD98E7E) : Colors.grey,
+          size: 24,
+        ),
+        const SizedBox(height: 4),
+        Text(
+          label,
+          style: TextStyle(
+            fontSize: 10,
             color: isSelected ? const Color(0xFFD98E7E) : Colors.grey,
-            size: 24,
+            fontWeight: isSelected ? FontWeight.w600 : FontWeight.normal,
           ),
-          const SizedBox(height: 4),
-          Text(
-            label,
-            style: TextStyle(
-              fontSize: 10,
-              color: isSelected ? const Color(0xFFD98E7E) : Colors.grey,
-              fontWeight: isSelected ? FontWeight.w600 : FontWeight.normal,
-            ),
-          ),
-        ],
-      ),
-    );
-  }
+        ),
+      ],
+    ),
+  );
+}
+
 }

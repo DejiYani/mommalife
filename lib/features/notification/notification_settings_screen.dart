@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class NotificationSettingsScreen extends StatefulWidget {
-  const NotificationSettingsScreen({Key? key}) : super(key: key);
+  const NotificationSettingsScreen({super.key});
 
   @override
   State<NotificationSettingsScreen> createState() =>
@@ -130,7 +130,7 @@ class _NotificationSettingsScreenState
           Switch(
             value: value,
             onChanged: onChanged,
-            activeColor: terracottaColor,
+            activeThumbColor: terracottaColor,
             activeTrackColor: terracottaColor.withOpacity(0.5),
           ),
         ],

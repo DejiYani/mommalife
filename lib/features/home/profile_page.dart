@@ -6,7 +6,7 @@ void main() {
 }
 
 class ProfilePage extends StatelessWidget {
-  const ProfilePage({Key? key}) : super(key: key);
+  const ProfilePage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +23,7 @@ class ProfilePage extends StatelessWidget {
 }
 
 class ProfileScreen extends StatelessWidget {
-  const ProfileScreen({Key? key}) : super(key: key);
+  const ProfileScreen({super.key});
 
   // Terracotta color constant
   static const Color terracottaColor = Color(0xFFD98E7E);
