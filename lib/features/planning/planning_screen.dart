@@ -14,7 +14,17 @@ class PlanningScreen extends StatefulWidget {
 }
 
 class _PlanningScreenState extends State<PlanningScreen> {
+final List<bool> _checklistValues = [
+  false, // Start Folic Acid
+  false, // Dental Checkup
+  false, // Maintain Healthy Weight
+  false, // Review Recovery Guide
+  false, // List Questions
+  false, // Discuss Spacing
+];
+
   int _selectedIndex = 6; // Planning tab selected
+  final List<bool> _seminarRegistered = [false, false, false];
 
   @override
 
@@ -28,101 +38,6 @@ Widget _buildSectionTitle(String title) {
   );
 }
 
-Widget _buildSeminarCard(int index) {
-  return Container(
-    width: 220,
-    margin: const EdgeInsets.only(right: 12),
-    padding: const EdgeInsets.all(16),
-    decoration: BoxDecoration(
-      color: Colors.white,
-      borderRadius: BorderRadius.circular(16),
-    ),
-    child: Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        const Icon(
-          Icons.calendar_month,
-          color: Color(0xFFD98E7E),
-          size: 32,
-        ),
-        const SizedBox(height: 12),
-        const Text(
-          "Postpartum Wellness",
-          style: TextStyle(fontWeight: FontWeight.bold),
-        ),
-        const SizedBox(height: 4),
-        const Text(
-          "May 24 • 10:00 AM\nClinic Conference Room",
-          style: TextStyle(fontSize: 12),
-        ),
-        const Spacer(),
-        ElevatedButton(
-          style: ElevatedButton.styleFrom(
-            backgroundColor: const Color(0xFFFFE5DF),
-            foregroundColor: const Color(0xFFD98E7E),
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(20),
-            ),
-          ),
-          onPressed: () {
-            setState(() {
-              _seminarRegistered[index] = !_seminarRegistered[index];
-            });
-          },
-          child: Text(
-            _seminarRegistered[index]
-                ? "Registered"
-                : "Register",
-          ),
-        ),
-      ],
-    ),
-  );
-}
-
-Widget _buildCheckbox(String title, int index) {
-  return CheckboxListTile(
-    activeColor: const Color(0xFFD98E7E),
-    value: _checklistValues[index],
-    onChanged: (value) {
-      setState(() {
-        _checklistValues[index] = value!;
-      });
-    },
-    title: Text(title),
-  );
-}
-
-Widget _buildFAQTile(String title, String content) {
-  return Card(
-    shape: RoundedRectangleBorder(
-      borderRadius: BorderRadius.circular(12),
-    ),
-    child: ExpansionTile(
-      title: Text(
-        title,
-        style: const TextStyle(fontWeight: FontWeight.w500),
-      ),
-      iconColor: const Color(0xFFD98E7E),
-      children: [
-        Padding(
-          padding: const EdgeInsets.all(16),
-          child: Text(content),
-        ),
-      ],
-    ),
-  );
-}
-  final List<bool> _seminarRegistered = [false, false, false];
-
-final List<bool> _checklistValues = [
-  false, // Start Folic Acid
-  false, // Dental Checkup
-  false, // Maintain Healthy Weight
-  false, // Review Recovery Guide
-  false, // List Questions
-  false, // Discuss Spacing
-];
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -236,6 +151,92 @@ final List<bool> _checklistValues = [
       bottomNavigationBar: _buildBottomNavigation(),
     );
   }
+
+Widget _buildSeminarCard(int index) {
+  return Container(
+    width: 220,
+    margin: const EdgeInsets.only(right: 12),
+    padding: const EdgeInsets.all(16),
+    decoration: BoxDecoration(
+      color: Colors.white,
+      borderRadius: BorderRadius.circular(16),
+    ),
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        const Icon(
+          Icons.calendar_month,
+          color: Color(0xFFD98E7E),
+          size: 32,
+        ),
+        const SizedBox(height: 12),
+        const Text(
+          "Postpartum Wellness",
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
+        const SizedBox(height: 4),
+        const Text(
+          "May 24 • 10:00 AM\nClinic Conference Room",
+          style: TextStyle(fontSize: 12),
+        ),
+        const Spacer(),
+        ElevatedButton(
+          style: ElevatedButton.styleFrom(
+            backgroundColor: const Color(0xFFFFE5DF),
+            foregroundColor: const Color(0xFFD98E7E),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(20),
+            ),
+          ),
+          onPressed: () {
+            setState(() {
+              _seminarRegistered[index] = !_seminarRegistered[index];
+            });
+          },
+          child: Text(
+            _seminarRegistered[index]
+                ? "Registered"
+                : "Register",
+          ),
+        ),
+      ],
+    ),
+  );
+}
+
+Widget _buildCheckbox(String title, int index) {
+  return CheckboxListTile(
+    activeColor: const Color(0xFFD98E7E),
+    value: _checklistValues[index],
+    onChanged: (value) {
+      setState(() {
+        _checklistValues[index] = value!;
+      });
+    },
+    title: Text(title),
+  );
+}
+
+Widget _buildFAQTile(String title, String content) {
+  return Card(
+    shape: RoundedRectangleBorder(
+      borderRadius: BorderRadius.circular(12),
+    ),
+    child: ExpansionTile(
+      title: Text(
+        title,
+        style: const TextStyle(fontWeight: FontWeight.w500),
+      ),
+      iconColor: const Color(0xFFD98E7E),
+      children: [
+        Padding(
+          padding: const EdgeInsets.all(16),
+          child: Text(content),
+        ),
+      ],
+    ),
+  );
+}
 
   Widget _buildBottomNavigation() {
     return Container(
